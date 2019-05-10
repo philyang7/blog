@@ -1,3 +1,4 @@
+//npm install vue-html --save-dev
 module.exports = {
     // theme: 'yubisaki',
     title: '个人主页',

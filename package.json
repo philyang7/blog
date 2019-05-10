@@ -15,6 +15,7 @@
   "devDependencies": {
     "less": "^3.0.2",
     "vue-echarts": "^3.0.7",
+    "vue-html": "^1.0.0",
     "vuepress": "^1.0.0-alpha.19",
     "vuepress-plugin-flowchart": "^1.4.2"
   }
