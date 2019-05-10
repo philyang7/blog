@@ -60,11 +60,11 @@ function integrateGitalk(to) {
         var path = fullPath.split(".")[0]
         var labels = path.split("/")[2]
         const gitalk = new Gitalk({
-            clientID: '9b600a5cc026d65c9bb2',
-            clientSecret: '6978d7f1f640b38b7e52fb0df795878fa3c1fc85',
-            repo: 'Viking1726.github.io',
-            owner: 'Viking1726',
-            admin: ['Viking1726'],
+            clientID: '96157176c0cb62fd0ffe',
+            clientSecret: '5d304b6b5acb5e56dcb8436e4ba1f7155ddfc429',
+            repo: 'YvanYangi.github.io',
+            owner: 'YvanYangi',
+            admin: ['YvanYangi'],
             // id: window.location.hash,      // Ensure uniqueness and length less than 50
             id: "",      // Ensure uniqueness and length less than 50
             distractionFreeMode: false,  // Facebook-like distraction free mode
@@ -118,9 +118,9 @@ function initClick() {
 export default ({Vue, options, router}) => {
     try {
         initClick()
-        // document && router.afterEach((to) => {
-        //     integrateGitalk(to)
-        // })
+        document && router.afterEach((to) => {
+            integrateGitalk(to)
+        })
     } catch (e) {
         console.error(e.message)
     }

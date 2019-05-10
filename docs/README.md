@@ -1,6 +1,6 @@
 ---
 home: true
-actionText: Get into →
+actionText: 进入 →
 actionLink: /home/home
 ---
 

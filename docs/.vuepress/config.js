@@ -1,8 +1,8 @@
 //npm install vue-html --save-dev
 module.exports = {
     // theme: 'yubisaki',
-    title: '个人主页',
-    description: 'Personal Website',
+    title: '南风知我意',
+    description: '个人博客',
     head: [
         ['link', {rel: 'shortcut icon', href: `/WechatIMG1.png`}],
     ],
@@ -34,15 +34,14 @@ module.exports = {
         sidebar: [
 
 
-            // '/home/home',
-            // {
-            //     title: 'JAVA 片段',
-            //     collapsable: true,
-            //     children: [
-            //         '/java/aes-rsa-java',
-            //         '/java/java-write-json'
-            //     ]
-            // },
+            '/home/home',
+            {
+                title: 'Java基础',
+                collapsable: true,
+                children: [
+                    '/java/java-basic'
+                ]
+            },
             // {
             //     title: 'HTML 片段',
             //     collapsable: true,
