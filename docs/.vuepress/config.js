@@ -42,6 +42,7 @@ module.exports = {
                     '/java/java-basic'
                 ]
             },
+            '/code/java-code-block',
             // {
             //     title: 'HTML 片段',
             //     collapsable: true,
