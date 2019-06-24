@@ -35,6 +35,7 @@ module.exports = {
 
 
             '/home/home',
+            '/code/java-code-block',
             {
                 title: 'Java基础',
                 collapsable: true,
@@ -42,7 +43,20 @@ module.exports = {
                     '/java/java-basic'
                 ]
             },
-            '/code/java-code-block',
+            {
+                title: '分布式相关',
+                collapsable: true,
+                children: [
+                    '/distributed/distributed-transaction'
+                ]
+            },
+            {
+                title: 'DataBase',
+                collapsable: true,
+                children: [
+                    '/redis/redis'
+                ]
+            },
             // {
             //     title: 'HTML 片段',
             //     collapsable: true,
