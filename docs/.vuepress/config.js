@@ -1,7 +1,7 @@
 //npm install vue-html --save-dev
 module.exports = {
     // theme: 'yubisaki',
-    title: '南风知我意',
+    title: "YangYangYang \'s Blog",
     description: '个人博客',
     head: [
         ['link', {rel: 'shortcut icon', href: `/WechatIMG1.png`}],
@@ -51,10 +51,17 @@ module.exports = {
                 ]
             },
             {
-                title: 'DataBase',
+                title: '数据库',
                 collapsable: true,
                 children: [
                     '/redis/redis'
+                ]
+            },
+            {
+                title: '版本控制',
+                collapsable: true,
+                children: [
+                    '/version-control/git'
                 ]
             },
             // {

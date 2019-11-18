@@ -1,13 +1,23 @@
 <template>
     <div class="homepage-hero-module">
-        <div class="video-container">
+<!--        <div class="video-container">-->
 <!--            <div :style="fixStyle" class="filter"></div>-->
 <!--            <video :style="fixStyle" preload="auto" autoplay loop muted class="fillWidth" v-on:canplay="canplay">-->
 <!--                <source src="/video/Black_Lava_Field.mp4" type="video/mp4"/>-->
 <!--                <source src="/video/Black_Lava_Field.webm" type="video/webm"/>-->
 <!--            </video>-->
+<!--            <div class="poster hidden" v-if="!vedioCanPlay">-->
+<!--                <img :style="fixStyle" src="/video/Black_Lava_Field.jpg" alt="">-->
+<!--            </div>-->
+<!--        </div>-->
+        <div class="video-container">
+            <div :style="fixStyle" class="filter"></div>
+<!--            <video :style="fixStyle" preload="auto" autoplay loop muted class="fillWidth" v-on:canplay="canplay">-->
+<!--                <source src="/video/Black_Lava_Field.mp4" type="video/mp4"/>-->
+<!--                <source src="/video/Black_Lava_Field.webm" type="video/webm"/>-->
+<!--            </video>-->
             <div class="poster hidden" v-if="!vedioCanPlay">
-                <img :style="fixStyle" src="/video/Black_Lava_Field.jpg" alt="">
+                <img :style="fixStyle" src="/video/index1.jpg" alt="">
             </div>
         </div>
     </div>
