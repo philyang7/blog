@@ -13,6 +13,7 @@ dateTrue = Math.floor((Math.random() * (max - min) + min) * pow) / pow;
 ```
 
 ### 数字格式化
+
 ```
 NumberFormat nf = NumberFormat.getPercentInstance();//百分比格式
 nf.setMinimumFractionDigits(0);//保留n位小数
