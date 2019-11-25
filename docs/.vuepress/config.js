@@ -35,16 +35,17 @@ module.exports = {
 
 
             '/home/home',
-            '/code/java-code-block',
             {
-                title: 'Java基础',
+                title: 'Java',
                 collapsable: true,
                 children: [
-                    '/java/java-basic'
+                    '/java/java-code-block',
+                    '/java/java-basic',
+                    '/java/java-advanced'
                 ]
             },
             {
-                title: '分布式相关',
+                title: '分布式',
                 collapsable: true,
                 children: [
                     '/distributed/distributed-transaction'
@@ -61,7 +62,15 @@ module.exports = {
                 title: '版本控制',
                 collapsable: true,
                 children: [
-                    '/version-control/git'
+                    '/version-control/git',
+                    '/version-control/git-advanced'
+                ]
+            },
+            {
+                title: '服务器',
+                collapsable: true,
+                children: [
+                    '/deploy/server-deploy'
                 ]
             },
             // {
