@@ -4,7 +4,7 @@ module.exports = {
     title: "YangYangYang \'s Blog",
     description: '个人博客',
     head: [
-        ['link', {rel: 'shortcut icon', href: `/WechatIMG1.png`}],
+        ['link', {rel: 'shortcut icon', href: `/logo.png`}],
     ],
     plugins: [
         'flowchart'
