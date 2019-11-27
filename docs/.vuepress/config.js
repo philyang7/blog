@@ -52,6 +52,13 @@ module.exports = {
                 ]
             },
             {
+                title: '开发',
+                collapsable: true,
+                children: [
+                    '/develop/debug'
+                ]
+            },
+            {
                 title: '数据库',
                 collapsable: true,
                 children: [
