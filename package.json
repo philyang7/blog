@@ -7,7 +7,7 @@
     "element-ui": "^2.3.7",
     "gitalk": "^1.4.0",
     "gitment": "0.0.3",
-    "highlight.js": "^9.12.0",
+    "highlight.js": "^10.4.1",
     "less-loader": "^4.1.0",
     "vue": "^2.5.16",
     "vue-highlight.js": "^2.2.0"
