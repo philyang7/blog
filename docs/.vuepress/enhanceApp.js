@@ -117,7 +117,7 @@ function initClick() {
 
 export default ({Vue, options, router}) => {
     try {
-        initClick()
+        // initClick()
         document && router.afterEach((to) => {
             integrateGitalk(to)
         })

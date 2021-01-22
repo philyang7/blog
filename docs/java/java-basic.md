@@ -53,6 +53,15 @@
 4. TreeSet： 保存有次序的Set, 底层为树结构。使用它可以从Set中提取有序的序列。
 5. LinkedHashSet：具有HashSet的查询速度，且内部使用链表维护元素的顺序(插入的次序)。于是在使用迭代器遍历Set时，结果会按元素插入的次序显示。
 
+***
+### HashMap里的hashcode方法和equal方法重写
+
+***使用HashMap，如果key是自定义的类，就必须重写hashcode()和equals()。***
+
+HashMap中的比较key是先求出key的hashcode()，比较其值是否相等，若相等再比较equals()，若相等则认为他们是相等的。因为自定义的类的hashcode()方法继承于Object类，其hashcode码为默认的内存地址，则即便有相同含义的两个对象，比较也是不相等的。
+
+例如，生成了两个“羊”对象，正常理解这两个对象应该是相等的，但如果你不重写 hashcode（）方法的话，比较是不相等的！HashMap用来判断key是否相等的方法，其实是调用了HashSet判断加入元素是否相等。
+
 
 ***
 ### 红黑树（红黑二叉树）

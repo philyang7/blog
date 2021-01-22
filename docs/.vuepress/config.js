@@ -40,8 +40,15 @@ module.exports = {
                 collapsable: true,
                 children: [
                     '/java/java-code-block',
-                    '/java/java-basic',
-                    '/java/java-advanced'
+                    '/java/java-basic'
+                ]
+            },
+            {
+                title: 'JavaGuide',
+                collapsable: true,
+                children: [
+                    '/java-guide/transactional',
+                    '/java-guide/cache'
                 ]
             },
             {
