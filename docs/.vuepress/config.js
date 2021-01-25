@@ -47,6 +47,7 @@ module.exports = {
                 title: 'JavaGuide',
                 collapsable: true,
                 children: [
+                    '/java-guide/jvm',
                     '/java-guide/transactional',
                     '/java-guide/cache'
                 ]
