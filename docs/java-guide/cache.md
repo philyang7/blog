@@ -59,27 +59,27 @@
 布隆过滤器实现：
 * Google开源的 Guava中自带的布隆过滤器
     ```
-        #引入依赖
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>28.0-jre</version>
-        </dependency>
+    #引入依赖
+    <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>28.0-jre</version>
+    </dependency>
     ```
     ```
-        // 创建布隆过滤器对象
-        BloomFilter<Integer> filter = BloomFilter.create(
-                Funnels.integerFunnel(),
-                1500,   //最多存放最多1500个整数的布隆过滤器
-                0.01);  //容忍误判的概率为百分之0.01
-        // 判断指定元素是否存在
-        System.out.println(filter.mightContain(1));
-        System.out.println(filter.mightContain(2));
-        // 将元素添加进布隆过滤器
-        filter.put(1);
-        filter.put(2);
-        System.out.println(filter.mightContain(1));
-        System.out.println(filter.mightContain(2));
+    // 创建布隆过滤器对象
+    BloomFilter<Integer> filter = BloomFilter.create(
+            Funnels.integerFunnel(),
+            1500,   //最多存放最多1500个整数的布隆过滤器
+            0.01);  //容忍误判的概率为百分之0.01
+    // 判断指定元素是否存在
+    System.out.println(filter.mightContain(1));
+    System.out.println(filter.mightContain(2));
+    // 将元素添加进布隆过滤器
+    filter.put(1);
+    filter.put(2);
+    System.out.println(filter.mightContain(1));
+    System.out.println(filter.mightContain(2));
     ```
     当mightContain（）方法返回true时，我们可以99％确定该元素在过滤器中，当过滤器返回false时，我们可以100％确定该元素不存在于过滤器中。Guava 提供的布隆过滤器有一个重大的缺陷就是只能单机使用
 
