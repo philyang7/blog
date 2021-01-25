@@ -1,7 +1,7 @@
 # JVM虚拟机
 
 ### JVM内存模型
-![avatar](/img/java-guide/jvm/jvm.png)
+![avatar](/img/java-guide/jvm/jvm.jpg)
 * 程序计数器：较小的内存空间，当前线程执行字节码的行数指示器，各线程之间独立存储。
 * Java栈：线程私有，每个方法在执行时会创建一个栈帧，用来存储局部变量表，动态链接，方法出口等信息，方法的执行就是栈帧出入栈的过程。
 * 本地方法栈：保存的是Native方法的信息，当线程调用native方法后，JVM不会在虚拟机栈中创建栈帧，而是简单的动态链接并调用native方法。
@@ -15,7 +15,7 @@
 
 ***
 ### 堆内存
-![avatar](/img/java-guide/jvm/heap.png)
+![avatar](/img/java-guide/jvm/heap.jpg)
 1. JVM内存划分为堆内存和非堆内存，堆内存分为年轻代、老年代，非堆内存就一个永久代。
 2. 年轻代又分为生成区Eden区和幸存区Survivor区。Survivor区由FromSpace和ToSpace组成。Eden区占大容量，Survivor两个区占小容量，默认比例是8:1:1。
 3. 堆内存用途：存放的是对象，垃圾收集器就是收集这些对象，然后根据GC算法回收。
@@ -34,19 +34,19 @@
 
 1. 标记-清除（Mark-Sweep）
 
-    ![avatar](/img/java-guide/jvm/1.png)
+    ![avatar](/img/java-guide/jvm/1.jpg)
 
     首先标记所有可回收的对象，在标记完成后统一回收所有被标记的对象。同时会产生不连续的内存碎片。碎片过多会导致以后程序运行时需要分配较大对象时，无法找到足够的连续内存，而不得已再次触发GC。
 
 2. 复制（Copy）
     
-    ![avatar](/img/java-guide/jvm/2.png)
+    ![avatar](/img/java-guide/jvm/2.jpg)
     
     将内存按容量划分为两块，每次只使用其中一块。当这一块内存用完了，就将存活的对象复制到另一块上，然后再把已使用的内存空间一次清理掉。这样使得每次都是对半个内存区回收，也不用考虑内存碎片问题，简单高效。缺点需要两倍的内存空间。
 
 3. 标记-整理（Mark-Compact）
     
-    ![avatar](/img/java-guide/jvm/3.png)
+    ![avatar](/img/java-guide/jvm/3.jpg)
     
     首先标记可回收的对象，再将存活的对象都向一端移动，然后清理掉边界以外的内存。此方法避免标记-清除算法的碎片问题，同时也避免了复制算法的空间问题。
     
