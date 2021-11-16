@@ -59,7 +59,7 @@
     ```
 
 ***
-### centos7.3安装mysql
+### centos7安装mysql
 
 1. 获取官方yum源
 
@@ -67,12 +67,15 @@
     
 2. 下载
     ```bash
+    ## mysql5.7
     $ wget https://dev.mysql.com/get/mysql57-community-release-el7-11.noarch.rpm
+    ## mysql8
+    $ wget https://repo.mysql.com//mysql80-community-release-el7-1.noarch.rpm
     ```
     
 3. 安装源
     ```bash
-    $ yum -y localinstall mysql57-community-release-el7-11.noarch.rpm
+    $ yum -y localinstall mysql80-community-release-el7-1.noarch.rpm
     ```
     
 4. 在线安装Mysql
@@ -83,7 +86,7 @@
 5. 启动mysql
     ```bash
     $ systemctl start mysqld
-    ```  
+    ```
 
 ***
 ### mysql配置相关
@@ -92,8 +95,8 @@
 
 1. centos :
     ```bash
-        $ systemctl enable mysqld
-        $ systemctl daemon-reload
+    $ systemctl enable mysqld
+    $ systemctl daemon-reload
     ```
 
 #### 查看mysql root初始密码并修改
@@ -175,7 +178,7 @@
     ps: 多个配置文件，前面的文件不存在才会读取后面的，编辑文件，如果发现是新文件，则编辑后面的文件
 
 3. 重启mysql服务
-    
+  
     ```bash
     $ service mysqld restart
     ```
@@ -211,6 +214,8 @@
      $ service mysqld restart
      ```
 
+***
+
 ### centos7.3安装tomcat8
 
 1. 下载tomcat [官方下载地址](http://tomcat.apache.org/download-80.cgi)
@@ -227,6 +232,8 @@
     $ firewall-cmd --zone=public --add-port=80/tcp --permanent
     $ firewall-cmd --reload
     ```
+
+***
 
 ### centos7.3安装redis4
 
@@ -249,7 +256,7 @@
     ```bash
     $ cd redis-4.0.6
     $ make MALLOC=libc　
-  
+    
     #将redis-4.0.6/src目录下的文件加到/usr/local/bin目录
     $ cd src && make install
     ```
@@ -257,14 +264,16 @@
 5. 启动redis
 
     * 按需修改redis.conf文件  
-        `protected-mode no` 改为 `protected-mode yes`  
-        `bind 127.0.0.1` 注释掉，或者改为`bind 0.0.0.0`  
-    ​	ps: 防火墙开放端口 
+        是否开启保护模式	`protected-mode no/yes` 
+        
+        是否指定ip可访问	`bind 127.0.0.1/0.0.0.0` 
+        	ps: 防火墙开放端口 
+        
         ```bash
         $ firewall-cmd --zone=public --add-port=6379/tcp --permanent
         $ firewall-cmd --reload
-        ``` 
-    
+        ```
+        
     * 切换到redis的src目录下直接启动
         ```bash
         $ cd src
@@ -274,7 +283,7 @@
     * 后台进程启动
 
     * 修改redis.conf文件
-     ​	`daemonize no `改为 `daemonize yes
+     ​	`daemonize no ` 改为 `daemonize yes`
 
     * 指定redis.conf文件启动
         ```bash
@@ -322,10 +331,12 @@
         ```
     
         ps: 现在可以直接已服务的形式启动和关闭redis了  
-    ​	启动：`service redisd start`  
-    ​    停止：`service redisd stop`
+        ​	启动：`service redisd start`  
+        ​    停止：`service redisd stop`
 
-### centos7.3安装nginx
+***
+
+### centos7.3安装nginx [离线安装]
 
 ​	[参考资料](https://blog.csdn.net/qq_38591756/article/details/82829902)
 
@@ -419,3 +430,29 @@
         $ systemctl restart nginx.service  #重启，可使用sbin/nginx -s reload
         ```
 
+
+
+***
+
+###centos7.3安装nginx [在线安装]
+
+1. 添加rpm源
+
+   ```bash
+   $ sudo rpm -Uvh http://nginx.org/packages/centos/7/noarch/RPMS/nginx-release-centos-7-0.el7.ngx.noarch.rpm
+   ```
+
+2. 通过yum search nginx看看是否已经添加源成功。如果成功则执行命令安装Nginx
+
+   ```bash
+   $ sudo yum install -y nginx
+   ```
+
+3. 启动Nginx并设置开机自动运行
+
+   ```bash
+   $ sudo systemctl start nginx.service
+   $ sudo systemctl enable nginx.service
+   ```
+
+   
