@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-npm run docs:build
+yarn docs:build
 
 # 进入生成的构建文件夹
 cd docs/.vuepress/dist
@@ -15,6 +15,6 @@ cd docs/.vuepress/dist
 git init
 git add -A
 git commit -m 'deploy'
-git push -f https://github.com/YvanYangi/YvanYangi.github.io.git master
+git push -f https://github.com/philyang7/philyang7.github.io.git master
 
 cd -

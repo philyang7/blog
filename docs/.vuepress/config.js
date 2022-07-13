@@ -44,12 +44,13 @@ module.exports = {
                 ]
             },
             {
-                title: 'JavaGuide',
+                title: '面试知识导航',
                 collapsable: true,
                 children: [
+                    '/java-guide/spring',
                     '/java-guide/jvm',
                     '/java-guide/transactional',
-                    '/java-guide/cache'
+                    '/java-guide/redis'
                 ]
             },
             {
