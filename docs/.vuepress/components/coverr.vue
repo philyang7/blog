@@ -78,7 +78,7 @@
     }
     .video-container .poster img,
     .video-container video {
-        z-index: 0;
+        z-index: 1;
         position: absolute;
     }
     .video-container .filter {

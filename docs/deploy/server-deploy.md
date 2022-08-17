@@ -255,7 +255,7 @@
 4. 跳转到redis解压目录下编译安装
     ```bash
     $ cd redis-4.0.6
-    $ make MALLOC=libc　
+    $ make MALLOC=libc
     
     #将redis-4.0.6/src目录下的文件加到/usr/local/bin目录
     $ cd src && make install
@@ -311,7 +311,7 @@
         ```bash
         $ cd /etc/init.d
         $ chkconfig redisd on
-        service redisd does not support chkconfig　
+        service redisd does not support chkconfig
         ```
     
     * 如果如上提示不支持chkconfig
@@ -338,7 +338,7 @@
 
 ### centos7.3安装nginx [离线安装]
 
-​	[参考资料](https://blog.csdn.net/qq_38591756/article/details/82829902)
+[参考资料](https://blog.csdn.net/qq_38591756/article/details/82829902)
 
 1. 下载安装包和依赖  
 
@@ -434,7 +434,7 @@
 
 ***
 
-###centos7.3安装nginx [在线安装]
+### centos7.3安装nginx [在线安装]
 
 1. 添加rpm源
 

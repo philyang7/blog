@@ -89,6 +89,20 @@ module.exports = {
                     '/deploy/server-deploy'
                 ]
             },
+            {
+                title: '中间件集成',
+                collapsable: true,
+                children: [
+                    '/integration/springboot'
+                ]
+            },
+            {
+                title: 'Docker',
+                collapsable: true,
+                children: [
+                    '/docker/docker'
+                ]
+            },
             // {
             //     title: 'HTML 片段',
             //     collapsable: true,
