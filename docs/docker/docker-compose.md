@@ -1,6 +1,6 @@
 # docker-compose
 
-[docker相关目录下载](http://philyang.site:9000/blog/docker.zip)
+[docker相关目录下载](http://minio.philyang.site/blog/docker.zip)
 
 ### docker-compose命令
 ```shell

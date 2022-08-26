@@ -100,7 +100,8 @@ module.exports = {
                 title: 'Docker',
                 collapsable: true,
                 children: [
-                    '/docker/docker'
+                    '/docker/docker',
+                    '/docker/docker-compose'
                 ]
             },
             // {
