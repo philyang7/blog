@@ -7,8 +7,8 @@ useradd -m $USER -g $USER -s /bin/bash -d /home/$USER
 passwd $USER
 ```
 
-### 安装docker
-centos8安装docker：https://blog.csdn.net/m0_67403073/article/details/124504302
+### debain安装docker
+centos安装和卸载docker：[外部链接](https://blog.csdn.net/shenyunsese/article/details/125596369)
 
 1. 如果更换过或者添加过软件源相关操作，一定要执行sudo apt-get update刷新存储库，没有的话就不用了
 
@@ -85,7 +85,8 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-### 卸载Docker
+### debain卸载Docker
+centos安装和卸载docker：[外部链接](https://blog.csdn.net/shenyunsese/article/details/125596369)
 1. 卸载依赖
 ```shell
 sudo apt-get purge docker-ce docker-ce-cli containerd.io docker-compose-plugin
@@ -124,16 +125,38 @@ docker-compose version
 
 ### docker部署jar
 
-1. build镜像
+1. 编写dockerfile
+```dockerfile
+FROM openjdk:8
+# author
+MAINTAINER philyang
+
+# 端口
+expose 8080
+# 挂载目录
+#VOLUME /home/docker/server
+# 创建目录
+RUN mkdir -p /home/docker/server
+# 指定路径
+WORKDIR /home/docker/server
+# 复制jar文件到路径
+COPY ./server/jar/*.jar /home/docker/server/app.jar
+# 启动应用
+ENTRYPOINT ["java","-jar","app.jar"]
+```
+
+2. build镜像
 
     ```bash
-    docker build -t bimface-api:v1.0 .
+    docker build  -f ./xxx.dockerfile -t imagename:version .
     ```
 
-2. run
+3. run
 
     ```bash
-    docker run -d -it --name=bimface-api -p 8989:8989 -v /Users/philyang/docker/app/bimface-api/:/app/ bimface-api:v1.0
+    docker run --name containname -d iamgeid
+
+    docker run -d -it --name=containname -p 8989:8989 -v /Users/philyang/docker/app/bimface-api/:/app/ bimface-api:v1.0
     ```
 
     
