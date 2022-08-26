@@ -162,7 +162,7 @@ services:
       - "/home/docker/minio/config:/root/.minio"
     environment:
       MINIO_ACCESS_KEY: "minioadmin"
-      MINIO_SECRET_KEY: "YANGfei666!"
+      MINIO_SECRET_KEY: "password"
       TZ: Asia/Shanghai
     command: server /data --console-address ":9090"
 ```
