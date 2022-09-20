@@ -331,8 +331,8 @@
         ```
     
         ps: 现在可以直接已服务的形式启动和关闭redis了  
-        ​	启动：`service redisd start`  
-        ​    停止：`service redisd stop`
+        启动：`service redisd start`  
+        停止：`service redisd stop`
 
 ***
 
@@ -430,8 +430,6 @@
         $ systemctl restart nginx.service  #重启，可使用sbin/nginx -s reload
         ```
 
-
-
 ***
 
 ### centos7.3安装nginx [在线安装]
@@ -455,4 +453,252 @@
    $ sudo systemctl enable nginx.service
    ```
 
-   
+***
+
+### linux安装配置frp
+* 安装包下载：
+    [linux版本下载](http://minio.philyang.site/blog/frp_0.44.0_linux_amd64.tar.gz)
+    [win版本下载](http://minio.philyang.site/blog/frp_0.44.0_windows_amd64.zip)
+1. 解析文件
+```shell
+tar -zxvf xxx.tar.gz
+```
+
+2. 服务端相关配置
+```config
+$ vim frps.ini
+
+[common]
+bind_port = 7000
+# 用户访问此服务器的端口
+vhost_http_port = 80
+# 如果支持https
+vhost_https_port = 443
+
+# 如需自定义子域名访问如下
+subdomain_host = web.philyang.site
+```
+
+3. 客户端配置
+```config
+$ vim frpc.ini
+
+[common]
+# 服务端frps的地址和通信端口
+server_addr = 127.0.0.1
+server_port = 7000
+
+# 穿透ssh服务
+[ssh]
+type = tcp
+local_ip = 127.0.0.1
+local_port = 22
+# 用户访问服务端的端口
+remote_port = 6000
+
+
+# 穿透http服务
+[http]
+type = http
+# 需要穿透访问的本地端口
+local_port = 1001
+# 服务端解析后的IP或全域名
+custom_domains = daijiashan.servasoft.com
+# 如需自定义子域名访问如下
+subdomain = mac
+
+# 穿透windows远程桌面
+[rdp]
+type = tcp
+local_ip = 127.0.0.1
+#远程桌面的默认端口
+local_port = 3389
+# 服务端开启的端口，外网访问
+remote_port = 7001
+
+
+# https相关配置
+[https-www.sample.cn]
+type = https
+# 填写实际域名
+custom_domains = www.philyang.site
+plugin = https2http
+plugin_local_addr = 127.0.0.1:80
+# HTTPS 证书相关的配置
+plugin_crt_path = /Users/philyang/work/frp_0.37.0_darwin_amd64/ssl/philyang.site_bundle.pem
+plugin_key_path = /Users/philyang/work/frp_0.37.0_darwin_amd64/ssl/philyang.site.key
+plugin_host_header_rewrite = 127.0.0.1
+plugin_header_X-From-Where = frp
+
+[https-@.sample.cn]
+type = https
+# 填写实际域名
+custom_domains = sample.cn
+plugin = https2http
+plugin_local_addr = 127.0.0.1:80
+# HTTPS 证书相关的配置
+plugin_crt_path = /Users/philyang/work/frp_0.37.0_darwin_amd64/ssl/philyang.site_bundle.pem
+plugin_key_path = /Users/philyang/work/frp_0.37.0_darwin_amd64/ssl/philyang.site.key
+plugin_host_header_rewrite = 127.0.0.1
+plugin_header_X-From-Where = frp
+
+[http-@.sample.cn]
+type = http
+local_port = 80
+# 填写实际域名
+custom_domains = sample.cn
+
+[http-www.sample.cn]
+type = http
+local_port = 80
+# 填写实际域名
+custom_domains = www.sample.cn
+```
+
+4. 启动服务
+```shell
+# 控制台启动
+./frpc -c frpc.ini
+
+# 后台启动
+# nohup ./frpc -c frpc.ini > frpc.log &
+
+```
+
+***
+
+### windows开机自启
+1. win+R 输入 shell::startup
+
+2. 创建vbs文件并输入以下内容
+    * frp服务
+    ```vbs
+    Set ws = CreateObject("Wscript.Shell")
+    ws.run "cmd /c D:\work\frp_0.44.0_windows_amd64\frpc.exe -c D:\word\frp_0.44.0_windows_amd64\frpc.ini",,True    
+    ```
+    * jar服务
+    ```vbs
+    Set ws = CreateObject("Wscript.Shell")
+    ws.run "cmd /c java -jar D:\daijiwordashan\hk-security-api-0.0.1-SNAPSHOT.jar",,True
+    ```
+    * ws.run 的第二个参数 0=隐藏后台运行 6=最小化运行
+
+***
+
+### linux开机自启
+
+ubantu18系统见此：[外部链接](https://blog.51cto.com/u_12218973/5106174)
+
+1. 新建需要执行的sh文件,如start-jar.sh
+```shell
+vim start-jar.sh
+
+nohup java -jar XXX.jar >/dev/null 2>&1 &
+```
+
+2. 编辑`rc.local`文件 
+```shell
+cd /etc/rc.d
+
+cat rc.local
+
+#!/bin/bash
+# THIS FILE IS ADDED FOR COMPATIBILITY PURPOSES
+#
+# It is highly advisable to create own systemd services or udev rules
+# to run scripts during boot instead of using this file.
+#
+# In contrast to previous versions due to parallel execution during boot
+# this script will NOT be run after all other services.
+#
+# Please note that you must run 'chmod +x /etc/rc.d/rc.local' to ensure
+# that this script will be executed during boot.
+ 
+touch /var/lock/subsys/local
+ 
+###上述代码为rc.local文件中自有内容，不需要改动
+```
+
+3. 追加内容到rc.local
+```shell
+# 进入你项目所在的目录
+cd /myApp/test
+# 执行该目录下的sh文件
+sh /myApp/test/startup.sh
+ 
+# 如果不提前进入所在目录，直接执行第二句，也会开机自启动，但是日志文件会在根目录下的log文件中。只有先进入，再执行，项目的日志文件才会在目标文件夹下
+```
+
+***
+
+### https certbot
+
+使用`Let's Encrypt`部署免费的https泛域名
+
+1. 检查是否安装过certbot相关服务，如果有需删除
+```shell
+sudo apt-get remove certbot
+sudo dnf remove certbot
+sudo yum remove certbot
+```
+
+2. [安装snapd](https://snapcraft.io/docs/installing-snapd)
+```shell
+# debain 9和10
+sudo apt update
+sudo apt install snapd
+
+# centos
+sudo yum install snapd
+sudo systemctl enable --now snapd.socket
+
+# ubantu 16.04+ 已自动安装
+```
+
+3. 准备certbot命令
+```shell
+sudo ln -s /snap/bin/certbot /usr/bin/certbot
+```
+
+4. 生成证书
+```shell
+# 注意替换域名，这里将泛域和订域均生成了
+sudo certbot certonly  --preferred-challenges dns -d "*.philyang.site" -d philyang.site --manual
+
+# 1.输入邮箱号，用于接受ssl过期提醒
+# 2.记录IP，输入Y
+# 3.是否接受订阅推送，可输入 N
+# 4.输入域名
+# 会生成域名TXT记录值，加入到域名解析中
+# 生成的证书文件在 /etc/letsencrypt/live/ 下
+```
+
+5. 配置nginx
+```nginx
+# 在 nginx.conf 中 server里加入以下内容
+ssl_certificate /etc/letsencrypt/live/philyang.site/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/philyang.site/privkey.pem;
+```
+
+6. 设置定时续期脚本文件
+    * 因为ssl证书默认有效期为90天，所以需要配置自动续期，也可手动执行
+    * 续签命令：`sudo certbot renew`
+    * 强制续签：`sudo certbot renew --force-renewal`
+```shell
+vim /etc/letsencrypt/sslrenew.sh
+
+sudo certbot renew
+# 最好在这加入重启ngin的命令
+service restart nginx
+```
+
+7. 给予脚本文件权限
+    * chmod -x /etc/letsencrypt/sslrenew.sh
+
+8. 设置定时执行
+```shell
+crontab -e
+
+# 加入定时执行的脚本内容，下文示例为：每隔两个月的，凌晨1点0分，执行
+0 1 * */2 * /etc/letsencrypt/sslrenew.sh
+```

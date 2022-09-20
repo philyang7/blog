@@ -2,6 +2,8 @@
 
 [docker相关目录下载](http://minio.philyang.site/blog/docker.zip)
 
+***
+
 ### docker-compose命令
 ```shell
 # 编译启动
@@ -20,6 +22,8 @@ docker-compose build mysql
 docker-compose up  mysql
 
 ```
+
+***
 
 ### docker-compose安装mysql
 1. 编写docker-compose文件
@@ -53,6 +57,8 @@ services:
       TZ: Asia/Shanghai
 ```
 
+***
+
 ### docker-compose安装redis
 1. 编写docker-compose文件
 ```yaml
@@ -73,6 +79,8 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
 ```
+
+***
 
 ### docker-compose运行jar
 1. 编写server-dockerfile文件
@@ -123,6 +131,8 @@ services:
     restart: always
 ```
 
+***
+
 ### docker-compose安装nginx
 1. 编写nginx-compose文件
 ```yaml
@@ -144,6 +154,8 @@ services:
       # 时区上海
       TZ: Asia/Shanghai
 ```
+
+***
 
 ### docker-compose安装minio
 1. 编写minio-compose文件
