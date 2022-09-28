@@ -457,36 +457,54 @@
 
 ### linux安装配置frp
 * 安装包下载：
-    [linux版本下载](http://minio.philyang.site/blog/frp_0.44.0_linux_amd64.tar.gz)
-    [win版本下载](http://minio.philyang.site/blog/frp_0.44.0_windows_amd64.zip)
+    [linux版本下载](https://minio.philyang.site/blog/frp_0.44.0_linux_amd64.tar.gz)
+    [win版本下载](https://minio.philyang.site/blog/frp_0.44.0_windows_amd64.zip)
 1. 解析文件
 ```shell
 tar -zxvf xxx.tar.gz
 ```
 
 2. 服务端相关配置
-```config
+   * [官方中文文档](https://gofrp.org/docs/)
+```properties
 $ vim frps.ini
 
 [common]
+# 服务端开放的供客户端建立连接的端口
 bind_port = 7000
-# 用户访问此服务器的端口
+# 用户访问HTTP类型的服务端口,可自定义
 vhost_http_port = 80
-# 如果支持https
+# 用户访问HTTP类型的服务端口
 vhost_https_port = 443
 
-# 如需自定义子域名访问如下
-subdomain_host = web.philyang.site
+# 如需自定义多级域名访问,将主域名配置在这里
+subdomain_host = philyang.site
+
+
+# 启动服务
+$ ./frps -c frps.ini    # 控制台启动服务端
+$ nohup ./frps -c frps.ini > frps.log 2>&1 &   #后台启动服务端
 ```
 
 3. 客户端配置
-```config
+```properties
 $ vim frpc.ini
 
 [common]
-# 服务端frps的地址和通信端口
+# 服务端frps的ip地址,一般为服务端的公网IP
 server_addr = 127.0.0.1
+# 服务端开放建立连接的端口,对应服务端配置文件中的 bind_port
 server_port = 7000
+
+# 穿透http服务
+[http]
+type = http
+# 需要本地的哪个端口穿透出去
+local_port = 1001
+# 如使用指定域名访问,则在下面配置,最终访问域名则为下值
+custom_domains = daijiashan.servasoft.com
+# 如需自定义多级域名访问,将子域名配置在这里,最终访问域名则为下值和frps.ini中的subdomain_host拼接后的域名,本文则为 mac.philyang.site
+subdomain = mac
 
 # 穿透ssh服务
 [ssh]
@@ -495,17 +513,6 @@ local_ip = 127.0.0.1
 local_port = 22
 # 用户访问服务端的端口
 remote_port = 6000
-
-
-# 穿透http服务
-[http]
-type = http
-# 需要穿透访问的本地端口
-local_port = 1001
-# 服务端解析后的IP或全域名
-custom_domains = daijiashan.servasoft.com
-# 如需自定义子域名访问如下
-subdomain = mac
 
 # 穿透windows远程桌面
 [rdp]
@@ -553,17 +560,13 @@ type = http
 local_port = 80
 # 填写实际域名
 custom_domains = www.sample.cn
+
+
+# 启动服务
+$ ./frps -c frps.ini    # 控制台启动服务端
+$ nohup ./frps -c frps.ini > frps.log 2>&1 &   #后台启动服务端
 ```
 
-4. 启动服务
-```shell
-# 控制台启动
-./frpc -c frpc.ini
-
-# 后台启动
-# nohup ./frpc -c frpc.ini > frpc.log &
-
-```
 
 ***
 
@@ -572,12 +575,12 @@ custom_domains = www.sample.cn
 
 2. 创建vbs文件并输入以下内容
     * frp服务
-    ```vbs
+    ```bash
     Set ws = CreateObject("Wscript.Shell")
     ws.run "cmd /c D:\work\frp_0.44.0_windows_amd64\frpc.exe -c D:\word\frp_0.44.0_windows_amd64\frpc.ini",,True    
     ```
     * jar服务
-    ```vbs
+    ```bash
     Set ws = CreateObject("Wscript.Shell")
     ws.run "cmd /c java -jar D:\daijiwordashan\hk-security-api-0.0.1-SNAPSHOT.jar",,True
     ```
