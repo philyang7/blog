@@ -1,6 +1,6 @@
 # docker-compose
 
-[docker相关目录下载](https://minio.philyang.site/blog/docker.zip)
+[docker相关目录下载](https://file.philyang.site/blog/docker.zip)
 
 ***
 
@@ -32,7 +32,7 @@ version : '3'
 services:
 
   mysql:
-    container_name: app-mysql
+    container_name: mysql
     image: mysql:8.0
     ports:
       - "3306:3306"
@@ -66,15 +66,15 @@ version : '3'
 services:
 
   redis:
-    container_name: app-redis
+    container_name: redis
     image: redis
     ports:
       - "6379:6379"
     volumes:
       - ./redis/data:/data
       - ./redis/logs:/logs
-      - ./redis/conf/redis.conf:/home/docker/redis/redis.conf
-    command: redis-server /home/docker/redis/redis.conf
+      - ./redis/conf/redis.conf:/docker/redis/redis.conf
+    command: redis-server /docker/redis/redis.conf
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -140,16 +140,19 @@ version : '3'
 services:
 
   nginx:
-    container_name: app-nginx
+    container_name: nginx
     image: nginx
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./nginx/html:/home/docker/nginx/html
+      - ./nginx/html:/docker/nginx/html
       - ./nginx/logs:/var/log/nginx
       - ./nginx/conf/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf/conf.d:/etc/nginx/conf.d
-      - ./nginx/ssl:/home/docker/nginx/ssl
+      - ./nginx/ssl:/docker/nginx/ssl
+      - /etc/letsencrypt:/etc/letsencrypt
+    privileged: true
     environment:
       # 时区上海
       TZ: Asia/Shanghai
@@ -164,17 +167,36 @@ version : '3'
 services:
 
    minio:
-    container_name: app-minio
+    container_name: minio
     image: minio/minio
     ports:
       - "9000:9000"
       - "9090:9090"
     volumes:
-      - "/home/docker/minio/data:/data"
-      - "/home/docker/minio/config:/root/.minio"
+      - ./minio/data:/data
+      - .minio/config:/root/.minio
     environment:
       MINIO_ACCESS_KEY: "minioadmin"
-      MINIO_SECRET_KEY: "password"
+      MINIO_SECRET_KEY: "YANGfei666!"
       TZ: Asia/Shanghai
     command: server /data --console-address ":9090"
+
+```
+
+***
+
+### docker-compose安装nexus
+```yaml
+version : '3'
+services:
+
+   nexus:
+    #restart: always
+    container_name: nexus
+    image: sonatype/nexus3:3.29.0
+    ports:
+      - "8081:8081"
+    volumes:
+      - ./nexus/data:/nexus-data
+
 ```

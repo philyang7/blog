@@ -457,8 +457,8 @@
 
 ### linux安装配置frp
 * 安装包下载：
-    [linux版本下载](https://minio.philyang.site/blog/frp_0.44.0_linux_amd64.tar.gz)
-    [win版本下载](https://minio.philyang.site/blog/frp_0.44.0_windows_amd64.zip)
+    [linux版本下载](https://file.philyang.site/blog/frp_0.44.0_linux_amd64.tar.gz)
+    [win版本下载](https://file.philyang.site/blog/frp_0.44.0_windows_amd64.zip)
 1. 解析文件
 ```shell
 tar -zxvf xxx.tar.gz
