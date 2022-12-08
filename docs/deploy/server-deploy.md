@@ -634,9 +634,10 @@ sh /myApp/test/startup.sh
 
 ***
 
-### https certbot
+### ssl https certbot
 
 使用`Let's Encrypt`部署免费的https泛域名
+推荐使用下一节的方式安装，此安装方式因为是手动申请证书，所以自动续期有问题。
 
 1. 检查是否安装过certbot相关服务，如果有需删除
 ```shell
@@ -704,4 +705,66 @@ crontab -e
 
 # 加入定时执行的脚本内容，下文示例为：每隔两个月的，凌晨1点0分，执行
 0 1 * */2 * /etc/letsencrypt/sslrenew.sh
+```
+
+
+***
+
+### ssl https came.sh
+
+1. 安装acme.sh
+```shell
+curl https://get.acme.sh | sh -s email=my@example.com
+
+# 如果无法访问可选国内备用地址
+curl https://gitcode.net/cert/cn-acme.sh/-/raw/master/install.sh?inline=false | sh -s email=my@example.com
+
+# 安装完成后如不能直接使用acme.sh命令，则需进入安装目录执行，一般是 /root/.acme.sh
+
+```
+
+2. 开启自动更新
+```shell
+
+acme.sh --upgrade --auto-upgrade
+```
+
+3. 配置dns解析api
+```shell
+# 如果域名提供商是腾讯云
+pip install certbot-dns-dnspod
+# 在腾讯云总览页面进入‘DNS解析DNSPod’ -> 账号中心 -> API密钥 -> DNSPod Token  生成id和key填入下面命令然后执行
+export DP_Id="xxxxxxx"
+export DP_Key="08d7xxxxxxxxxxxxxxxxxxxx"
+
+# 如果域名提供商是阿里云
+
+export Ali_Key="sdfsdfsdfljlbjkljlkjsdfoiwje"
+export Ali_Secret="jlsdflanljkljlfdsaklkjflsa"
+
+```
+
+4. 切换服务提供商为letsencrypt
+```shell
+acme.sh --set-default-ca --server letsencrypt
+```
+
+5. 申请证书
+```shell
+# 注意--dns参数的值
+
+# 腾讯云是：dns_dp   
+acme.sh --issue --dns dns_dp -d philyang.site -d *.philyang.site
+
+# 阿里云是：dns_ali
+acme.sh --issue --dns dns_ali -d philyang.site -d *.philyang.site
+```
+
+6. 安装证书
+```shell
+# 此命令会将申请的证书安装到指定路径，并可选执行重启web服务的命令
+acme.sh --install-cert -d philyang.site -d *.philyang.site \
+--key-file       /apps/docker/nginx/ssl/philyang.site/key.pem  \
+--fullchain-file /apps/docker/nginx/ssl/philyang.site/cert.pem \
+--reloadcmd     "docker restart nginx"
 ```
