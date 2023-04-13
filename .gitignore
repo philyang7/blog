@@ -2,3 +2,4 @@ node_modules
 dist
 .idea
 v-press.iml
+.DS_Store
