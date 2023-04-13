@@ -10,6 +10,7 @@ module.exports = {
         'flowchart'
     ],
     themeConfig: {
+        subSidebar: 'auto',
         lastUpdated: '更新时间',
         serviceWorker: {
             //updatePopup: true // Boolean | Object, 默认值是 undefined.
