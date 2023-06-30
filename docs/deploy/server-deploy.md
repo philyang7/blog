@@ -1,6 +1,13 @@
 # 服务器端部署
 
 ***
+### centos安装openjdk8
+1.使用yum安装
+   ```shell
+   yum install java-1.8.0-openjdk
+   ```
+
+
 ### centos7.3安装jdk1.8
 
 1. 如果有openjdk先卸载
